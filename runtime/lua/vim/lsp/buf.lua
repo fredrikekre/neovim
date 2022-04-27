@@ -572,7 +572,11 @@ local function on_code_action_results(results, ctx, options)
     kind = 'codeaction',
     format_item = function(action_tuple)
       local title = action_tuple[2].title:gsub('\r\n', '\\r\\n')
-      return title:gsub('\n', '\\n')
+      title = title:gsub('\n', '\\n')
+      if action_tuple[2].isPreferred then
+        title = title .. ' [preferred]'
+      end
+      return title
     end,
   }, on_user_choice)
 end
